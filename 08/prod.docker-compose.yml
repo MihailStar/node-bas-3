@@ -1,0 +1,40 @@
+version: '3.0'
+
+services:
+  app:
+    container_name: app-prod-container
+    environment:
+      - POSTGRES_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    build:
+      context: ./
+      dockerfile: ./prod.Dockerfile
+    networks:
+      - app-db-prod-network
+    ports:
+      - ${PORT}:4000
+    restart: always
+    depends_on:
+      - db
+
+  db:
+    container_name: db-prod-container
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_SECRET_REFRESH_KEY=${JWT_SECRET_REFRESH_KEY}
+      - TOKEN_EXPIRE_TIME=${TOKEN_EXPIRE_TIME}
+      - TOKEN_REFRESH_EXPIRE_TIME=${TOKEN_REFRESH_EXPIRE_TIME}
+    build: ./db
+    networks:
+      - app-db-prod-network
+    restart: always
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+    command: postgres -c logging_collector=on
+
+networks:
+  app-db-prod-network:
+    driver: bridge

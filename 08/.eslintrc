@@ -1,0 +1,7 @@
+{
+  "extends": ["../.eslintrc"],
+  "rules": {
+    "import/extensions": ["error", "ignorePackages", { "ts": "never" }],
+    "n/no-missing-import": "off"
+  }
+}
