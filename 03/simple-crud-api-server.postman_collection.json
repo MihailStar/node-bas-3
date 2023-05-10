@@ -1,0 +1,592 @@
+{
+  "info": {
+    "_postman_id": "7055a262-24e5-425f-a32f-ced508133d15",
+    "name": "Simple CRUD API (server)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create",
+      "item": [
+        {
+          "name": "Returns 201",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(201);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "\r",
+                  "  const parsedJson = pm.response.json();\r",
+                  "\r",
+                  "  pm.expect(parsedJson).to.be.an('object');\r",
+                  "  pm.expect(parsedJson.data).to.be.an('object');\r",
+                  "\r",
+                  "  pm.collectionVariables.set('tested_user_id', parsedJson.data.id);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"username\",\r\n  \"age\": 33,\r\n  \"hobbies\": [\"hobby\"]\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/users",
+              "host": ["{{API_URL}}"],
+              "path": ["users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Returns 400 (body)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(400);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "\r",
+                  "  const parsedJson = pm.response.json();\r",
+                  "\r",
+                  "  pm.expect(parsedJson).to.be.an('object');\r",
+                  "  pm.expect(parsedJson.data).to.be.an('null');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"username\",\r\n  \"age\": 33\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/users",
+              "host": ["{{API_URL}}"],
+              "path": ["users"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Read all",
+      "item": [
+        {
+          "name": "Returns 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(200);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "\r",
+                  "  const parsedJson = pm.response.json();\r",
+                  "\r",
+                  "  pm.expect(parsedJson).to.be.an('object');\r",
+                  "  pm.expect(parsedJson.data).to.be.an('array');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/users",
+              "host": ["{{API_URL}}"],
+              "path": ["users"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Read",
+      "item": [
+        {
+          "name": "Returns 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(200);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "\r",
+                  "  const parsedJson = pm.response.json();\r",
+                  "\r",
+                  "  pm.expect(parsedJson).to.be.an('object');\r",
+                  "  pm.expect(parsedJson.data).to.be.an('object');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/users/{{tested_user_id}}",
+              "host": ["{{API_URL}}"],
+              "path": ["users", "{{tested_user_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Returns 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(400);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "\r",
+                  "  const parsedJson = pm.response.json();\r",
+                  "\r",
+                  "  pm.expect(parsedJson).to.be.an('object');\r",
+                  "  pm.expect(parsedJson.data).to.be.an('null');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/users/8cb2ec8c-7dba-xxxx-91f5-266286e1b11b",
+              "host": ["{{API_URL}}"],
+              "path": ["users", "8cb2ec8c-7dba-xxxx-91f5-266286e1b11b"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Returns 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(404);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "\r",
+                  "  const parsedJson = pm.response.json();\r",
+                  "\r",
+                  "  pm.expect(parsedJson).to.be.an('object');\r",
+                  "  pm.expect(parsedJson.data).to.be.an('null');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/users/8cb2ec8c-7dba-45dc-91f5-266286e1b11b",
+              "host": ["{{API_URL}}"],
+              "path": ["users", "8cb2ec8c-7dba-45dc-91f5-266286e1b11b"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Update",
+      "item": [
+        {
+          "name": "Returns 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(200);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "\r",
+                  "  const parsedJson = pm.response.json();\r",
+                  "\r",
+                  "  pm.expect(parsedJson).to.be.an('object');\r",
+                  "  pm.expect(parsedJson.data).to.be.an('object');\r",
+                  "\r",
+                  "  pm.collectionVariables.set('tested_user_id', parsedJson.data.id);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"new_username\",\r\n  \"age\": 33,\r\n  \"hobbies\": [\"new_hobby\"]\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/users/{{tested_user_id}}",
+              "host": ["{{API_URL}}"],
+              "path": ["users", "{{tested_user_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Returns 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(400);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "\r",
+                  "  const parsedJson = pm.response.json();\r",
+                  "\r",
+                  "  pm.expect(parsedJson).to.be.an('object');\r",
+                  "  pm.expect(parsedJson.data).to.be.an('null');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"new_username\",\r\n  \"age\": 33,\r\n  \"hobbies\": [\"new_hobby\"]\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/users/8cb2ec8c-7dba-xxxx-91f5-266286e1b11b",
+              "host": ["{{API_URL}}"],
+              "path": ["users", "8cb2ec8c-7dba-xxxx-91f5-266286e1b11b"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Returns 400 (body)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(400);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "\r",
+                  "  const parsedJson = pm.response.json();\r",
+                  "\r",
+                  "  pm.expect(parsedJson).to.be.an('object');\r",
+                  "  pm.expect(parsedJson.data).to.be.an('null');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"username\",\r\n  \"age\": 33\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/users/{{tested_user_id}}",
+              "host": ["{{API_URL}}"],
+              "path": ["users", "{{tested_user_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Returns 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(404);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "\r",
+                  "  const parsedJson = pm.response.json();\r",
+                  "\r",
+                  "  pm.expect(parsedJson).to.be.an('object');\r",
+                  "  pm.expect(parsedJson.data).to.be.an('null');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"new_username\",\r\n  \"age\": 33,\r\n  \"hobbies\": [\"new_hobby\"]\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/users/8cb2ec8c-7dba-45dc-91f5-266286e1b11b",
+              "host": ["{{API_URL}}"],
+              "path": ["users", "8cb2ec8c-7dba-45dc-91f5-266286e1b11b"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Delete",
+      "item": [
+        {
+          "name": "Returns 204",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(204);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql(undefined);\r",
+                  "\r",
+                  "  pm.response.to.be.not.have.body();\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/users/{{tested_user_id}}",
+              "host": ["{{API_URL}}"],
+              "path": ["users", "{{tested_user_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Returns 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(400);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "\r",
+                  "  const parsedJson = pm.response.json();\r",
+                  "\r",
+                  "  pm.expect(parsedJson).to.be.an('object');\r",
+                  "  pm.expect(parsedJson.data).to.be.an('null');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/users/8cb2ec8c-7dba-xxxx-91f5-266286e1b11b",
+              "host": ["{{API_URL}}"],
+              "path": ["users", "8cb2ec8c-7dba-xxxx-91f5-266286e1b11b"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Returns 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response correct', () => {\r",
+                  "  pm.response.to.have.status(404);\r",
+                  "\r",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+                  "\r",
+                  "  const parsedJson = pm.response.json();\r",
+                  "\r",
+                  "  pm.expect(parsedJson).to.be.an('object');\r",
+                  "  pm.expect(parsedJson.data).to.be.an('null');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/users/{{tested_user_id}}",
+              "host": ["{{API_URL}}"],
+              "path": ["users", "{{tested_user_id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "HOST",
+      "value": "http://localhost"
+    },
+    {
+      "key": "PORT",
+      "value": "4000"
+    },
+    {
+      "key": "API_URL",
+      "value": "{{HOST}}:{{PORT}}/api"
+    },
+    {
+      "key": "tested_user_id",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "devDependencies": {
+    "@tsconfig/node18-strictest-esm": "^1.0.1",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.4",
+    "eslint-plugin-jsdoc": "^39.6.4",
+    "eslint-plugin-n": "^15.6.1",
+    "prettier": "^2.8.3",
+    "prettier-plugin-organize-imports": "^3.2.2",
+    "typescript": "^4.9.4"
+  },
+  "engines": {
+    "node": "^18.0.0",
+    "npm": "^8.0.0"
+  },
+  "name": "node-bas-3",
+  "private": true,
+  "scripts": {
+    "lint": "tsc --noEmit && eslint --ext ts,mts --quiet ./**/src/**/*.{ts,mts}",
+    "prettier": "prettier --check ./**/src/**/*.{ts,mts}"
+  },
+  "type": "module"
+}

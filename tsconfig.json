@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "noUncheckedIndexedAccess": false,
+    "removeComments": true
+  },
+  "exclude": ["dist", "node_modules", "./05/src"],
+  "extends": "@tsconfig/node18-strictest-esm/tsconfig.json",
+  "include": ["./**/src/**/*.ts", "./**/src/**/*.mts"],
+  "ts-node": {
+    "esm": true,
+    "transpileOnly": true
+  }
+}

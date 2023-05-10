@@ -1,0 +1,16 @@
+.git
+db
+dist
+node_modules
+test
+.dockerignore
+.eslintrc*
+.gitignore
+.prettierrc
+dev.docker-compose.yml
+dev.Dockerfile
+example.env
+prod.docker-compose.yml
+prod.Dockerfile
+nest-cli.json
+readme.md

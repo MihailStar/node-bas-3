@@ -1,0 +1,288 @@
+{
+  "info": {
+    "_postman_id": "fa5d670e-eca4-48b5-aa00-78d885d484ad",
+    "name": "Simple CRUD API (cluster)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create:4001",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Response correct', () => {\r",
+              "  pm.response.to.have.status(201);\r",
+              "\r",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+              "\r",
+              "  const parsedJson = pm.response.json();\r",
+              "\r",
+              "  pm.expect(parsedJson).to.be.an('object');\r",
+              "  pm.expect(parsedJson.data).to.be.an('object');\r",
+              "\r",
+              "  pm.collectionVariables.set('tested_user_id', parsedJson.data.id);\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"username\",\r\n  \"age\": 33,\r\n  \"hobbies\": [\"hobby\"]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}:4001/api/users",
+          "host": ["{{HOST}}"],
+          "port": "4001",
+          "path": ["api", "users"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Read after Create:4004",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Response correct', () => {\r",
+              "  pm.response.to.have.status(200);\r",
+              "\r",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+              "\r",
+              "  const parsedJson = pm.response.json();\r",
+              "\r",
+              "  pm.expect(parsedJson).to.be.an('object');\r",
+              "  pm.expect(parsedJson.data).to.be.an('object');\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}:4004/api/users/{{tested_user_id}}",
+          "host": ["{{HOST}}"],
+          "port": "4004",
+          "path": ["api", "users", "{{tested_user_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update:4002",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Response correct', () => {\r",
+              "  pm.response.to.have.status(200);\r",
+              "\r",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+              "\r",
+              "  const parsedJson = pm.response.json();\r",
+              "\r",
+              "  pm.expect(parsedJson).to.be.an('object');\r",
+              "  pm.expect(parsedJson.data).to.be.an('object');\r",
+              "\r",
+              "  pm.collectionVariables.set('tested_user_id', parsedJson.data.id);\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"new_username\",\r\n  \"age\": 33,\r\n  \"hobbies\": [\"new_hobby\"]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}:4002/api/users/{{tested_user_id}}",
+          "host": ["{{HOST}}"],
+          "port": "4002",
+          "path": ["api", "users", "{{tested_user_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Read after Update:4004",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Response correct', () => {\r",
+              "  pm.response.to.have.status(200);\r",
+              "\r",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+              "\r",
+              "  const parsedJson = pm.response.json();\r",
+              "\r",
+              "  pm.expect(parsedJson).to.be.an('object');\r",
+              "  pm.expect(parsedJson.data).to.be.an('object');\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}:4004/api/users/{{tested_user_id}}",
+          "host": ["{{HOST}}"],
+          "port": "4004",
+          "path": ["api", "users", "{{tested_user_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete:4003",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Response correct', () => {\r",
+              "  pm.response.to.have.status(204);\r",
+              "\r",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.eql(undefined);\r",
+              "\r",
+              "  pm.response.to.be.not.have.body();\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}:4003/api/users/{{tested_user_id}}",
+          "host": ["{{HOST}}"],
+          "port": "4003",
+          "path": ["api", "users", "{{tested_user_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Read after Delete:4004",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Response correct', () => {\r",
+              "  pm.response.to.have.status(404);\r",
+              "\r",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+              "\r",
+              "  const parsedJson = pm.response.json();\r",
+              "\r",
+              "  pm.expect(parsedJson).to.be.an('object');\r",
+              "  pm.expect(parsedJson.data).to.be.an('null');\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}:4004/api/users/{{tested_user_id}}",
+          "host": ["{{HOST}}"],
+          "port": "4004",
+          "path": ["api", "users", "{{tested_user_id}}"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "HOST",
+      "value": "http://localhost"
+    },
+    {
+      "key": "PORT",
+      "value": "4000"
+    },
+    {
+      "key": "API_URL",
+      "value": "{{HOST}}:{{PORT}}/api"
+    },
+    {
+      "key": "tested_user_id",
+      "value": ""
+    }
+  ]
+}
